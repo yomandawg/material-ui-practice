@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import { selectedCSS } from './Styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import StyledTab from './StyledTab';
 
-export default function DropdownTab({ label, subMenu }) {
+export default function DropdownTab({
+  label,
+  subMenu,
+  index,
+  handleSelected,
+  selected
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -13,11 +21,18 @@ export default function DropdownTab({ label, subMenu }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    handleSelected(index);
   };
 
   return (
-    <div>
-      <StyledTab onClick={handleClick}>{label}</StyledTab>
+    <>
+      <StyledTab
+        style={selected === index ? selectedCSS : {}}
+        disableRipple={true}
+        onClick={handleClick}
+      >
+        {label}
+      </StyledTab>
       <Menu
         id={label}
         anchorEl={anchorEl}
@@ -25,12 +40,20 @@ export default function DropdownTab({ label, subMenu }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {subMenu.map((menu) => (
-          <MenuItem key={menu} onClick={handleClose.bind(this)}>
-            {menu}
-          </MenuItem>
-        ))}
+        {subMenu.map((menu) => {
+          const pathname = menu.replace(/ |\.|-/g, '').toLowerCase();
+          return (
+            <MenuItem
+              key={pathname}
+              onClick={handleClose.bind(this)}
+              component={Link}
+              to={`/${pathname}`}
+            >
+              {menu}
+            </MenuItem>
+          );
+        })}
       </Menu>
-    </div>
+    </>
   );
 }

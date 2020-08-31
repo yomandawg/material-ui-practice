@@ -13,10 +13,15 @@ export const useHeaderStyles = makeStyles((theme) => ({
     marginRight: '25px',
     display: 'flex'
   },
-  roundButton: {
-    ...theme.typography.roundButton,
-    borderRadius: '50px',
-    marginLeft: '50px',
-    marginRight: '25px'
+  selected: {
+    color: 'white',
+    background: 'transparent',
+    borderBottom: '2px solid limegreen'
   }
 }));
+
+export const selectedCSS = {
+  color: 'white',
+  background: 'transparent',
+  borderBottom: '2px solid limegreen'
+};
