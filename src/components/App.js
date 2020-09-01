@@ -22,9 +22,6 @@ export default function App() {
               path="/"
               component={() => <div>{Array(50).fill(loremIpsum)}</div>}
             />
-            <Route exact path="/javascript" component={() => <div>JS</div>} />
-            <Route exact path="/react" component={() => <div>REACT</div>} />
-            <Route exact path="/cssinjs" component={() => <div>CSS</div>} />
             <Route exact path="/graphql" component={() => <div>CSS</div>} />
             <Route component={() => <div>404 Not Found</div>} />
           </Switch>

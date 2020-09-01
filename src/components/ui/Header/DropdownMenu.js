@@ -1,51 +1,50 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { selectedCSS } from './Styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import StyledTab from './StyledTab';
+import MenuButton from './styled/MenuButton';
 
-export default function DropdownTab({
-  label,
-  subMenu,
-  index,
-  selected,
-  setSelected
-}) {
+import menus from './menus';
+
+export default function DropdownMenu({ label, index, selected, setSelected }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const handleMouseOver = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClick = () => {
     setSelected(index);
+    setAnchorEl(null);
   };
 
   return (
     <>
-      <StyledTab
-        style={selected === index ? selectedCSS : {}}
+      <MenuButton
+        index={index}
+        selected={selected}
         disableRipple
-        onClick={handleClick}
+        onMouseOver={handleMouseOver}
       >
         {label}
-      </StyledTab>
+      </MenuButton>
       <Menu
         id={label}
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        MenuListProps={{ onMouseLeave: handleClose }}
       >
-        {subMenu.map((menu) => {
+        {menus[label].map((menu) => {
           const pathname = menu.replace(/ |\.|-/g, '').toLowerCase();
           return (
             <MenuItem
               key={pathname}
-              onClick={handleClose.bind(this)}
+              onClick={handleClick.bind(this)}
               component={Link}
               to={`/${pathname}`}
             >
