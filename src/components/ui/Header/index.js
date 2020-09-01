@@ -5,6 +5,7 @@ import logo from 'assets/logo.svg';
 import menus from './menus';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 
 import { useHeaderStyles, selectedCSS } from './Styles';
 import HideOnScroll from './HideOnScroll';
@@ -12,24 +13,28 @@ import DropdownTab from './DropdownTab';
 import StyledTab from './StyledTab';
 
 export default function Header() {
-  const [selected, setSelect] = useState(-1);
+  const [selected, setSelected] = useState(-1);
   const classes = useHeaderStyles();
-
-  const handleSelected = (select) => {
-    setSelect(select);
-  };
 
   return (
     <>
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar disableGutters>
-            <img alt="nngg logo" src={logo} className={classes.logo} />
+            <Button
+              component={Link}
+              to="/"
+              className={classes.logoContainer}
+              disableRipple
+              onClick={() => setSelected(-1)}
+            >
+              <img alt="nngg logo" src={logo} className={classes.logo} />
+            </Button>
             <div className={classes.tabContainer}>
               <StyledTab
                 style={selected === -1 ? selectedCSS : {}}
-                disableRipple={true}
-                onClick={() => handleSelected.bind(this)(-1)}
+                disableRipple
+                onClick={() => setSelected(-1)}
                 component={Link}
                 to="/"
               >
@@ -41,7 +46,7 @@ export default function Header() {
                   label={menu}
                   subMenu={menus[menu]}
                   index={index}
-                  handleSelected={handleSelected.bind(this)}
+                  setSelected={setSelected.bind(this)}
                   selected={selected}
                 />
               ))}

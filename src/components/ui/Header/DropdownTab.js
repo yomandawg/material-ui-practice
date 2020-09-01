@@ -10,8 +10,8 @@ export default function DropdownTab({
   label,
   subMenu,
   index,
-  handleSelected,
-  selected
+  selected,
+  setSelected
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -21,14 +21,14 @@ export default function DropdownTab({
 
   const handleClose = () => {
     setAnchorEl(null);
-    handleSelected(index);
+    setSelected(index);
   };
 
   return (
     <>
       <StyledTab
         style={selected === index ? selectedCSS : {}}
-        disableRipple={true}
+        disableRipple
         onClick={handleClick}
       >
         {label}

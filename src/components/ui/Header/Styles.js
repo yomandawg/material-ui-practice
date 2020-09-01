@@ -5,6 +5,12 @@ export const useHeaderStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     marginBottom: '3em'
   },
+  logoContainer: {
+    padding: 0,
+    '&:hover': {
+      backgroundColor: 'transparent'
+    }
+  },
   logo: {
     height: '7em'
   },
@@ -12,11 +18,6 @@ export const useHeaderStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: '25px',
     display: 'flex'
-  },
-  selected: {
-    color: 'white',
-    background: 'transparent',
-    borderBottom: '2px solid limegreen'
   }
 }));
 
