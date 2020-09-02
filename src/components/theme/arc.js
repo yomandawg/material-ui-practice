@@ -7,14 +7,14 @@ export const arc = createMuiTheme({
   palette: {
     common: {
       arcBlue,
-      arcOrange
+      arcOrange,
     },
     primary: {
-      main: arcBlue
+      main: arcBlue,
     },
     secondary: {
-      main: arcOrange
-    }
+      main: arcOrange,
+    },
   },
   typography: {
     tab: {
@@ -22,13 +22,13 @@ export const arc = createMuiTheme({
       textTransform: 'none',
       fontWeight: 700,
       fontSize: '1rem',
-      color: 'lightgrey'
+      color: 'white',
     },
     roundButton: {
       fontFamily: 'Roboto',
       fontSize: '1rem',
       textTransform: 'none',
-      color: 'white'
-    }
-  }
+      color: 'white',
+    },
+  },
 });

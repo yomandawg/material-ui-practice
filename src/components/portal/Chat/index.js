@@ -4,19 +4,28 @@ import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+
+import { arc as theme } from 'components/theme';
 
 const StyledButton = styled(Button)`
   position: fixed;
   bottom: 25px;
   right: 25px;
-  min-height: 50px;
   min-width: 50px;
-  background-color: #4caf50;
+  min-height: 50px;
+  background-color: limegreen;
   display: inline-block;
+  display: flex;
+  &:hover {
+    background-color: green;
+  }
 `;
 
 const StyledPaper = styled(Paper)`
-  background-color: blue;
+  width: 300px;
+  height: 500px;
+  background-color: ${theme.palette.primary.main};
 `;
 
 export default function ChatComponent() {
@@ -29,7 +38,7 @@ export default function ChatComponent() {
   };
 
   return (
-    <div>
+    <>
       <Popper open={open} anchorEl={anchorEl} placement="top-end" transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -39,7 +48,9 @@ export default function ChatComponent() {
           </Fade>
         )}
       </Popper>
-      <StyledButton onClick={handleClick} />
-    </div>
+      <StyledButton onClick={handleClick}>
+        <ChatBubbleIcon fontSize="default" />
+      </StyledButton>
+    </>
   );
 }

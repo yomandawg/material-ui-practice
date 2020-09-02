@@ -37,6 +37,8 @@ export default function Header() {
                 onClick={() => setSelected(-1)}
                 component={Link}
                 to="/"
+                variant="contained"
+                disableElevation
               >
                 Home
               </MenuButton>
@@ -51,6 +53,18 @@ export default function Header() {
                   to={`/${menu}`}
                 />
               ))}
+              <MenuButton
+                index={-2}
+                selected={selected}
+                disableRipple
+                onClick={() => setSelected(-2)}
+                component={Link}
+                to="/about"
+                variant="contained"
+                disableElevation
+              >
+                About
+              </MenuButton>
             </MenuContainer>
           </Toolbar>
         </AppBar>
