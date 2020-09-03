@@ -5,21 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import menus from './menus';
 
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuButton from './styled/MenuButton';
+import StyledMenuItem from './styled/StyledMenuItem';
 
 const useStyles = makeStyles((theme) => ({
   menu: {
     backgroundColor: theme.palette.common.arcBlue,
     borderRadius: 0,
-  },
-  menuItem: {
-    ...theme.typography.tab,
-    opacity: 0.7,
-    '&:hover': {
-      opacity: 1,
-    },
-    backgroundColor: 'unset !important',
   },
 }));
 
@@ -36,15 +28,23 @@ export default function DropdownMenu({ label, index, selected, setSelected }) {
     setAnchorEl(null);
   };
 
-  const handleClick = (value) => () => {
+  const handleClick = (event, value) => {
     setLocation(value);
     setSelected(index);
     setAnchorEl(null);
   };
 
   useEffect(() => {
-    if (index !== selected) {
-      setLocation(label);
+    if (index === selected) {
+      for (let menu of menus[label]) {
+        if (
+          menu.replace(/ |\.|-/g, '').toLowerCase() ===
+          window.location.pathname.slice(1)
+        ) {
+          setLocation(menu);
+          break;
+        }
+      }
     }
   });
 
@@ -71,15 +71,15 @@ export default function DropdownMenu({ label, index, selected, setSelected }) {
         {menus[label].map((menu) => {
           const pathname = menu.replace(/ |\.|-/g, '').toLowerCase();
           return (
-            <MenuItem
+            <StyledMenuItem
               key={pathname}
-              onClick={handleClick.bind(this)(menu)}
+              onClick={(event) => handleClick(event, menu)}
               component={Link}
               to={`/${pathname}`}
-              classes={{ root: classes.menuItem }}
+              selected={menu === location && index === selected}
             >
               {menu}
-            </MenuItem>
+            </StyledMenuItem>
           );
         })}
       </Menu>
