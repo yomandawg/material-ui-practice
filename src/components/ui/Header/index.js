@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import menus from './menus';
 import { arc as theme } from 'components/theme';
@@ -10,7 +9,6 @@ import AppBar from '@material-ui/core/AppBar';
 import HideOnScroll from './HideOnScroll';
 import Tabs from './Tabs';
 import Drawer from './Drawer';
-import { Logo } from './styled/Menu';
 import { ToolbarMargin } from './styled/Toolbar';
 
 export default function Header({
@@ -43,16 +41,16 @@ export default function Header({
   return (
     <>
       <HideOnScroll>
-        <AppBar style={{ zIndex: 1301 }} position="fixed" color="primary">
+        <AppBar
+          style={{
+            height: matches ? 80 : 100,
+            zIndex: 1301,
+            justifyContent: 'center',
+          }}
+          position="fixed"
+          color="primary"
+        >
           <Toolbar disableGutters>
-            <Logo
-              component={Link}
-              to="/"
-              disableRipple
-              onClick={() => setSelected(-1)}
-            >
-              <img alt="nngg logo" />
-            </Logo>
             {matches ? (
               <Drawer
                 menus={menus}

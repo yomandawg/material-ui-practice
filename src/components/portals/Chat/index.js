@@ -1,35 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
+
+import { arc as theme } from 'components/theme';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
-
-const StyledButton = styled(Button)`
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  min-width: 50px;
-  min-height: 50px;
-  background-color: limegreen;
-  display: inline-block;
-  display: flex;
-  z-index: 2000;
-  &:hover {
-    background-color: green;
-  }
-`;
-
-const StyledPaper = styled(Paper)`
-  width: 250px;
-  height: 400px;
-`;
+import Zoom from '@material-ui/core/Zoom';
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
+  block: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      bottom: theme.spacing(1.5),
+      right: theme.spacing(1.5),
+    },
     zIndex: 2000,
+  },
+  paper: {
+    width: '250px',
+    height: '400px',
+    marginBottom: '3px',
   },
 }));
 
@@ -38,6 +34,7 @@ export default function ChatComponent() {
   const [open, setOpen] = React.useState(false);
 
   const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,9 +42,8 @@ export default function ChatComponent() {
   };
 
   return (
-    <>
+    <div className={classes.block}>
       <Popper
-        className={classes.modal}
         open={open}
         anchorEl={anchorEl}
         placement="top-end"
@@ -56,15 +52,21 @@ export default function ChatComponent() {
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <StyledPaper elevation={3}>
+            <Paper className={classes.paper} elevation={3}>
               <div>agdfgadfagdfgadf</div>
-            </StyledPaper>
+            </Paper>
           </Fade>
         )}
       </Popper>
-      <StyledButton onClick={handleClick}>
-        <ChatBubbleIcon fontSize="default" />
-      </StyledButton>
-    </>
+      <Zoom in={true} unmountOnExit timeout={500}>
+        <Fab
+          onClick={handleClick}
+          color="primary"
+          size={matches ? 'medium' : 'large'}
+        >
+          <ChatBubbleIcon />
+        </Fab>
+      </Zoom>
+    </div>
   );
 }

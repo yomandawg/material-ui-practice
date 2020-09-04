@@ -8,8 +8,10 @@ import Hidden from '@material-ui/core/Hidden';
 const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.common.blue,
+    bottom: 0,
     zIndex: 1302,
-    position: 'relative',
+    width: '100%',
+    position: 'absolute',
     verticalAlign: 'bottom',
     height: '11em',
     [theme.breakpoints.down('md')]: {

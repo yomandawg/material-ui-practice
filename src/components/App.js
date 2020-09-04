@@ -4,7 +4,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
 import { ChatPortal, MusicPortal } from 'components/portals';
 import { Header, Footer } from 'components/ui';
-import { About } from 'components/pages/';
+import { Home, About } from 'components/pages/';
 import { arc as theme } from 'components/theme';
 
 export default function App() {
@@ -26,9 +26,7 @@ export default function App() {
               <Route
                 exact
                 path="/"
-                component={() => (
-                  <div style={{ height: '2000px' }}>ayayaya</div>
-                )}
+                component={(props) => <Home {...props} />}
               />
               <Route
                 exact

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
+import { arc as theme } from 'components/theme';
+
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -10,30 +13,28 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import YouTubeIcon from '@material-ui/icons/YouTube';
-import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Slider from '@material-ui/core/Slider';
+import Zoom from '@material-ui/core/Zoom';
+import Fab from '@material-ui/core/Fab';
 
 import YouTube from 'react-youtube';
 
-const StyledButton = styled(Button)`
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  min-width: 50px;
-  min-height: 50px;
-  background-color: limegreen;
-  display: flex;
-  z-index: 2000;
-  &:hover {
-    background-color: green;
-  }
-`;
-
 const useStyles = makeStyles((theme) => ({
-  root: {
+  block: {
+    position: 'fixed',
+    bottom: theme.spacing(11),
+    right: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      bottom: theme.spacing(9),
+      right: theme.spacing(1.5),
+    },
+    zIndex: 2000,
+  },
+  card: {
     display: 'flex',
+    marginBottom: '3px',
   },
   details: {
     display: 'flex',
@@ -61,19 +62,14 @@ const useStyles = makeStyles((theme) => ({
       color: 'blue',
     },
   },
-  youtube: {
-    position: 'absolute',
-  },
-  modal: {
-    zIndex: 2000,
-  },
 }));
 
-function MediaControlCard() {
-  const classes = useStyles();
-
+export default function MediaControlCard() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
+
+  const classes = useStyles();
+  const matches = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [player, setPlayer] = useState(null);
   const [playerState, setPlayerState] = useState('loading');
@@ -112,9 +108,8 @@ function MediaControlCard() {
   };
 
   return (
-    <>
+    <div className={classes.block}>
       <Popper
-        className={classes.modal}
         open={open}
         anchorEl={anchorEl}
         placement="top-end"
@@ -123,10 +118,10 @@ function MediaControlCard() {
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <Card className={classes.root}>
+            <Card className={classes.card}>
               <div className={classes.details}>
                 <CardContent className={classes.content}>
-                  <Typography component="h5" variant="h5">
+                  <Typography component="h4" variant="h4">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -174,23 +169,20 @@ function MediaControlCard() {
         )}
       </Popper>
       <YouTube
-        className={classes.youtube}
         videoId="5C-UzW1FLiA"
         opts={{ height: '0', width: '0' }}
         onReady={(event) => setPlayer(event.target)}
         onEnd={() => setPlayerState('ended')}
       />
-      <StyledButton onClick={handleClick}>
-        <YouTubeIcon />
-      </StyledButton>
-    </>
+      <Zoom in={true} unmountOnExit timeout={500}>
+        <Fab
+          onClick={handleClick}
+          color="primary"
+          size={matches ? 'medium' : 'large'}
+        >
+          <YouTubeIcon />
+        </Fab>
+      </Zoom>
+    </div>
   );
 }
-
-export default styled(MediaControlCard)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;

@@ -24,14 +24,19 @@ export const MenuButton = styled(Button).attrs((props) => ({
   disableElevation: true,
   variant: 'contained',
 }))`
-  min-width: 10px;
+  min-width: 200px;
   margin-left: 25px;
   border-bottom: 2px solid transparent;
   border-radius: 50%;
   background: unset !important;
   opacity: 0.7;
 
-  ${({ theme }) => theme.typography.tab}};
+  font-family: Raleway;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
 
   ${({ index, selected }) => (index === selected ? '' : '&:hover')} {
     opacity: 1;
@@ -40,16 +45,20 @@ export const MenuButton = styled(Button).attrs((props) => ({
 `;
 
 export const MenuContainer = styled.div`
-  margin-left: auto;
-  margin-right: 25px;
-  display: flex;
+  margin: auto;
 `;
 
 export const StyledMenuItem = styled(MenuItem)`
-  ${({ theme }) => theme.typography.tab};
+  font-family: Raleway;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+
+  justify-content: center;
+
   opacity: ${({ selected }) => (selected ? 1 : 0.7)};
   background: none !important;
-  letter-spacing: 0.45px;
 
   &:hover {
     opacity: 1;
@@ -58,6 +67,7 @@ export const StyledMenuItem = styled(MenuItem)`
 
 export const StyledMenu = styled(Menu)`
   .MuiMenu-paper {
+    min-width: 200px;
     background-color: ${({ theme }) => theme.palette.common.blue};
     border-radius: 0;
   }

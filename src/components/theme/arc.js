@@ -2,18 +2,20 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const arcBlue = '#0B72B9';
 const arcOrange = '#FFBA60';
+const smoothBlue = '#6774FF';
+const creamyOrange = '#FFD19B';
 
 export const arc = createMuiTheme({
   palette: {
     common: {
-      blue: arcBlue,
-      orange: arcOrange,
+      blue: smoothBlue,
+      orange: creamyOrange,
     },
     primary: {
-      main: arcBlue,
+      main: smoothBlue,
     },
     secondary: {
-      main: arcOrange,
+      main: creamyOrange,
     },
   },
   typography: {
@@ -29,6 +31,23 @@ export const arc = createMuiTheme({
       fontSize: '1rem',
       textTransform: 'none',
       color: 'white',
+    },
+    th2: {
+      fontFamily: 'Raleway',
+      fontWeight: 700,
+      fontSize: '2.5rem',
+      color: arcBlue,
+      lineHeight: 1.5,
+    },
+    th3: {
+      fontFamily: 'Pacifico',
+      fontSize: '2.5rem',
+      color: arcBlue,
+    },
+    th4: {
+      fontFamily: 'Raleway',
+      fontSize: '1.75rem',
+      color: arcBlue,
     },
   },
 });
