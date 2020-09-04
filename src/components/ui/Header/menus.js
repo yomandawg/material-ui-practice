@@ -1,23 +1,20 @@
-export default {
-  JavaScript: ['JavaScript', 'TypeScript', 'Node.js'],
-  React: ['React', 'Class Components', 'Hooks', 'Redux'],
-  CSS: ['CSS', 'Styled Components', 'Material UI'],
-  GraphQL: ['GraphQL', 'Apollo Client', 'Apollo Server'],
-};
-
-export const raw = [
-  '',
-  'javascript',
-  'typescript',
-  'node.js',
-  'react',
-  'classcomponents',
-  'hooks',
-  'redux',
-  'css',
-  'styledcomponents',
-  'materialui',
-  'graphql',
-  'apolloclient',
-  'apolloserver',
+export default [
+  [
+    { name: 'JavaScript', link: '/javascript' },
+    { name: 'TypeScript', link: '/typescript' },
+    { name: 'Node.js', link: '/nodejs' },
+    { name: 'RxJS', link: '/rxjs' },
+  ],
+  [
+    { name: 'React', link: '/react' },
+    { name: 'Class Components', link: '/classcomponents' },
+    { name: 'Hooks', link: '/hooks' },
+    { name: 'Redux', link: '/redux' },
+    { name: 'Styled Components', link: '/styledcomponents' },
+  ],
+  [
+    { name: 'GraphQL', link: '/graphql' },
+    { name: 'Apollo Client', link: '/apolloclient' },
+    { name: 'Apollo Server', link: '/apolloserver' },
+  ],
 ];

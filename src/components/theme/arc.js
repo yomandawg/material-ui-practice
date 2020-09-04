@@ -6,8 +6,8 @@ const arcOrange = '#FFBA60';
 export const arc = createMuiTheme({
   palette: {
     common: {
-      arcBlue,
-      arcOrange,
+      blue: arcBlue,
+      orange: arcOrange,
     },
     primary: {
       main: arcBlue,

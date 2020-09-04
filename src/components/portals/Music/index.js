@@ -19,12 +19,13 @@ import YouTube from 'react-youtube';
 
 const StyledButton = styled(Button)`
   position: fixed;
-  bottom: 100px;
-  right: 25px;
+  bottom: 90px;
+  right: 20px;
   min-width: 50px;
   min-height: 50px;
   background-color: limegreen;
   display: flex;
+  z-index: 2000;
   &:hover {
     background-color: green;
   }
@@ -60,9 +61,15 @@ const useStyles = makeStyles((theme) => ({
       color: 'blue',
     },
   },
+  youtube: {
+    position: 'absolute',
+  },
+  modal: {
+    zIndex: 2000,
+  },
 }));
 
-export default function MediaControlCard() {
+function MediaControlCard() {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -106,7 +113,14 @@ export default function MediaControlCard() {
 
   return (
     <>
-      <Popper open={open} anchorEl={anchorEl} placement="top-end" transition>
+      <Popper
+        className={classes.modal}
+        open={open}
+        anchorEl={anchorEl}
+        placement="top-end"
+        transition
+        disablePortal
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Card className={classes.root}>
@@ -160,6 +174,7 @@ export default function MediaControlCard() {
         )}
       </Popper>
       <YouTube
+        className={classes.youtube}
         videoId="5C-UzW1FLiA"
         opts={{ height: '0', width: '0' }}
         onReady={(event) => setPlayer(event.target)}
@@ -171,3 +186,11 @@ export default function MediaControlCard() {
     </>
   );
 }
+
+export default styled(MediaControlCard)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;

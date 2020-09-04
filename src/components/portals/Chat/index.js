@@ -1,36 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
-import { arc as theme } from 'components/theme';
-
 const StyledButton = styled(Button)`
   position: fixed;
-  bottom: 25px;
-  right: 25px;
+  bottom: 20px;
+  right: 20px;
   min-width: 50px;
   min-height: 50px;
   background-color: limegreen;
   display: inline-block;
   display: flex;
+  z-index: 2000;
   &:hover {
     background-color: green;
   }
 `;
 
 const StyledPaper = styled(Paper)`
-  width: 300px;
-  height: 500px;
-  background-color: ${theme.palette.primary.main};
+  width: 250px;
+  height: 400px;
 `;
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    zIndex: 2000,
+  },
+}));
 
 export default function ChatComponent() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +46,14 @@ export default function ChatComponent() {
 
   return (
     <>
-      <Popper open={open} anchorEl={anchorEl} placement="top-end" transition>
+      <Popper
+        className={classes.modal}
+        open={open}
+        anchorEl={anchorEl}
+        placement="top-end"
+        transition
+        disablePortal
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <StyledPaper elevation={3}>

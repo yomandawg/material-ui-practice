@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
-import menus from './menus';
+import { StyledMenu, MenuButton, StyledMenuItem } from './styled/Menu';
 
-import Menu from '@material-ui/core/Menu';
-import MenuButton from './styled/MenuButton';
-import StyledMenuItem from './styled/StyledMenuItem';
-
-const useStyles = makeStyles((theme) => ({
-  menu: {
-    backgroundColor: theme.palette.common.arcBlue,
-    borderRadius: 0,
-  },
-}));
-
-export default function DropdownMenu({ label, index, selected, setSelected }) {
+export default function DropdownMenu({
+  index,
+  menu,
+  selected,
+  setSelected,
+  selectedItem,
+  setSelectedItem,
+}) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [location, setLocation] = useState(label);
-  const classes = useStyles();
 
   const handleMouseOver = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,61 +21,44 @@ export default function DropdownMenu({ label, index, selected, setSelected }) {
     setAnchorEl(null);
   };
 
-  const handleClick = (event, value) => {
-    setLocation(value);
+  const handleClick = (event, name) => {
     setSelected(index);
+    setSelectedItem(name);
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    if (index === selected) {
-      for (let menu of menus[label]) {
-        if (
-          menu.replace(/ |\.|-/g, '').toLowerCase() ===
-          window.location.pathname.slice(1)
-        ) {
-          setLocation(menu);
-          break;
-        }
-      }
-    }
-  });
 
   return (
     <>
       <MenuButton
         index={index}
         selected={selected}
-        disableRipple
         onMouseOver={handleMouseOver}
-        disableElevation
-        variant="contained"
       >
-        {location}
+        {index === selected ? selectedItem : menu[0].name}
       </MenuButton>
-      <Menu
-        id={label}
+      <StyledMenu
+        style={{ zIndex: 1302 }}
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        classes={{ paper: classes.menu }}
+        keepMounted
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
+        transitionDuration={0}
+        variant="menu"
       >
-        {menus[label].map((menu) => {
-          const pathname = menu.replace(/ |\.|-/g, '').toLowerCase();
-          return (
-            <StyledMenuItem
-              key={pathname}
-              onClick={(event) => handleClick(event, menu)}
-              component={Link}
-              to={`/${pathname}`}
-              selected={menu === location && index === selected}
-            >
-              {menu}
-            </StyledMenuItem>
-          );
-        })}
-      </Menu>
+        {menu.map((item) => (
+          <StyledMenuItem
+            key={item.name}
+            disableRipple
+            onClick={(event) => handleClick(event, item.name)}
+            component={Link}
+            to={item.link}
+            selected={item.name === selectedItem}
+          >
+            {item.name}
+          </StyledMenuItem>
+        ))}
+      </StyledMenu>
     </>
   );
 }
