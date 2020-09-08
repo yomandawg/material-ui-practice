@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
@@ -71,6 +72,11 @@ export default function About() {
       default:
         break;
     }
+  };
+
+  const onConfirm = () => {
+    const mail =
+      'https://asia-northeast2-mui-practice-5db02.cloudfunctions.net/sendMail';
   };
 
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
@@ -275,7 +281,7 @@ export default function About() {
                   emailHelper.length !== 0
                 }
                 color="primary"
-                onClick={() => setOpen(true)}
+                onClick={onConfirm}
               >
                 Send
               </Button>
