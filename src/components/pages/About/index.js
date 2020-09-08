@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import emailIcon from 'assets/email.svg';
 
@@ -54,6 +56,12 @@ export default function About() {
   const [emailHelper, setEmailHelper] = useState('');
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    message: '',
+    backgroundColor: '',
+  });
 
   const onChange = (event) => {
     let valid;
@@ -75,8 +83,32 @@ export default function About() {
   };
 
   const onConfirm = () => {
-    const mail =
-      'https://asia-northeast2-mui-practice-5db02.cloudfunctions.net/sendMail';
+    setLoading(true);
+    axios
+      .get(
+        'https://asia-northeast2-mui-practice-5db02.cloudfunctions.net/sendMail',
+        { params: { name: name, email: email, message: message } }
+      )
+      .then((res) => {
+        setLoading(false);
+        setOpen(false);
+        setName('');
+        setEmail('');
+        setMessage('');
+        setAlert({
+          open: true,
+          message: 'Message sent successfully!',
+          backgroundColor: '#4BB543',
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        setAlert({
+          open: true,
+          message: 'Something went wrong, please try again!',
+          backgroundColor: '#FF3232',
+        });
+      });
   };
 
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
@@ -273,21 +305,35 @@ export default function About() {
                 justifyContent: 'center',
               }}
             >
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
-              <Button
-                disabled={
-                  name.length === 0 ||
-                  message.length === 0 ||
-                  emailHelper.length !== 0
-                }
-                color="primary"
-                onClick={onConfirm}
-              >
-                Send
-              </Button>
+              {loading ? (
+                <CircularProgress size={30} />
+              ) : (
+                <>
+                  <Button onClick={() => setOpen(false)}>Cancel</Button>
+                  <Button
+                    disabled={
+                      name.length === 0 ||
+                      message.length === 0 ||
+                      emailHelper.length !== 0
+                    }
+                    color="primary"
+                    onClick={onConfirm}
+                  >
+                    Send
+                  </Button>
+                </>
+              )}
             </Grid>
           </DialogContent>
         </Dialog>
+        <Snackbar
+          open={alert.open}
+          message={alert.message}
+          ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          onClose={() => setAlert({ ...alert, open: false })}
+          autoHideDuration={4000}
+        />
       </Grid>
     </Grid>
   );
