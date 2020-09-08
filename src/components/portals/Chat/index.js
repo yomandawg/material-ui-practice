@@ -53,7 +53,7 @@ export default function ChatComponent() {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper className={classes.paper} elevation={3}>
-              <div>agdfgadfagdfgadf</div>
+              <div></div>
             </Paper>
           </Fade>
         )}

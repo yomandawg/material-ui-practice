@@ -40,7 +40,6 @@ export default function DropdownMenu({
         style={{ zIndex: 1302 }}
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        keepMounted
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
         transitionDuration={0}

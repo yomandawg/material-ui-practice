@@ -38,10 +38,12 @@ export const MenuButton = styled(Button).attrs((props) => ({
   font-size: 1rem;
   color: white;
 
-  ${({ index, selected }) => (index === selected ? '' : '&:hover')} {
+  &:hover {
     opacity: 1;
-    border-color: limegreen;
   }
+
+  ${({ index, selected }) =>
+    index === selected ? 'opacity: 1; border-color: limegreen;' : ''};
 `;
 
 export const MenuContainer = styled.div`

@@ -1,23 +1,45 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
 
-import background from 'assets/background.jpg';
 import emailIcon from 'assets/email.svg';
-import airplane from 'assets/send.svg';
 
 const useStyles = makeStyles((theme) => ({
+  right: {
+    backgroundColor: 'white',
+  },
   background: {
-    backgroundImage: `url(${background})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    height: '60em',
+    height: '50em',
+    paddingBottom: '10em',
+    [theme.breakpoints.down('md')]: {
+      height: '40em',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '30em',
+    },
+  },
+  message: {
+    marginTop: '2em',
+    borderRadius: 5,
+    border: `2px solid ${theme.palette.common.blue}`,
+  },
+  sendButton: {
+    borderRadius: 50,
+    height: 45,
+    width: 200,
+    fontSize: '1rem',
+    backgroundColor: theme.palette.common.orange,
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
 }));
 
@@ -27,7 +49,30 @@ export default function About() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [emailHelper, setEmailHelper] = useState('');
   const [message, setMessage] = useState('');
+  const [open, setOpen] = useState(false);
+
+  const onChange = (event) => {
+    let valid;
+    switch (event.target.id) {
+      case 'email':
+        setEmail(event.target.value);
+        valid = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i.test(
+          event.target.value
+        );
+        if (!valid) {
+          setEmailHelper('Invalid email');
+        } else {
+          setEmailHelper('');
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Grid container direction="row">
@@ -35,72 +80,131 @@ export default function About() {
         item
         container
         className={classes.background}
+        direction="column"
+        alignItems="center"
         justify="center"
         lg={8}
-      ></Grid>
-      <Grid item container direction="column" justify="center" lg={4}>
+      >
         <Grid item>
-          <Typography variant="h2" style={{ lineHeight: 1 }}>
-            Contact Me
-          </Typography>
-          <Typography
-            variant="body1"
-            style={{ color: theme.palette.common.blue }}
-          >
-            Waiting...
-          </Typography>
-        </Grid>
-        <Grid item container>
-          <Grid item>
-            <img
-              src={emailIcon}
-              alt="envelope"
-              style={{ marginRight: '0.5em', verticalAlign: 'bottom' }}
-            />
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="body1"
-              style={{ color: theme.palette.common.blue, fontsize: '1rem' }}
-            >
-              youngjunkyj@gmail.com
-            </Typography>
-          </Grid>
-          <Grid item container>
+          <Grid container>
             <Grid item>
-              <TextField
-                label="Name"
-                id="name"
-                value={name}
-                onChange={(event) => setName(event.target.valule)}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label="Email"
-                id="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.valule)}
-              />
+              <Typography align={matchesMD ? 'center' : undefined} variant="h2">
+                Some things
+              </Typography>
+              <Typography
+                align={matchesMD ? 'center' : undefined}
+                variant="subtitle2"
+                style={{ fontSize: '1.5rem' }}
+              >
+                Other things
+              </Typography>
             </Grid>
           </Grid>
-          <Grid item>
-            <TextField
-              label="Message"
-              id="message"
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              multiline
-              rows={10}
-            />
-          </Grid>
-          <Grid item>
-            <Button>
-              Send Message
-              <img src={airplane} alt="send" />
-            </Button>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        direction="column"
+        alignItems="center"
+        justify="center"
+        lg={4}
+        className={classes.right}
+      >
+        <Grid
+          item
+          style={{
+            marginBottom: matchesMD ? '3em' : 0,
+            marginTop: matchesMD ? '3em' : 0,
+          }}
+        >
+          <Grid container direction="column">
+            <Grid item>
+              <Typography variant="h2" style={{ lineHeight: 1 }}>
+                Contact Me
+              </Typography>
+            </Grid>
+            <Grid item container direction="column">
+              <Grid item style={{ marginTop: '1em' }}>
+                <Typography
+                  variant="body1"
+                  style={{ color: theme.palette.common.blue, fontsize: '1rem' }}
+                >
+                  <img
+                    src={emailIcon}
+                    alt="envelope"
+                    style={{ marginRight: '0.5em', verticalAlign: 'middle' }}
+                  />
+                  <a
+                    href={`mailto:youremailaddress`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    youremailaddress
+                  </a>
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                container
+                direction="column"
+                style={{ maxWidth: '20em' }}
+              >
+                <Grid item style={{ marginTop: '1em' }}>
+                  <TextField
+                    label="Name"
+                    id="name"
+                    fullWidth
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                </Grid>
+                <Grid item style={{ marginTop: '1em' }}>
+                  <TextField
+                    label="Email"
+                    id="email"
+                    fullWidth
+                    value={email}
+                    onChange={onChange}
+                    error={emailHelper.length !== 0}
+                    helperText={emailHelper}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item style={{ maxWidth: '20em', marginTop: '1em' }}>
+                <TextField
+                  InputProps={{ disableUnderline: true }}
+                  className={classes.message}
+                  fullWidth
+                  id="message"
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
+                  multiline
+                  rows={10}
+                />
+              </Grid>
+              <Grid
+                item
+                container
+                justify="center"
+                style={{ marginTop: '2em' }}
+              >
+                <Button
+                  disabled={
+                    name.length === 0 ||
+                    message.length === 0 ||
+                    emailHelper.length !== 0
+                  }
+                  variant="contained"
+                  className={classes.sendButton}
+                  onClick={() => setOpen(true)}
+                >
+                  Send Message
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
+        <Dialog open={open} onClose={() => setOpen(false)}></Dialog>
       </Grid>
     </Grid>
   );

@@ -16,31 +16,40 @@ export default function App() {
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <Header
-              selected={selected}
-              setSelected={setSelected}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-            />
-            <Switch>
-              <Route
-                exact
-                path="/"
-                component={(props) => <Home {...props} />}
+            <div
+              style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: theme.palette.background.default,
+              }}
+            >
+              <Header
+                selected={selected}
+                setSelected={setSelected}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
               />
-              <Route
-                exact
-                path="/about"
-                component={(props) => <About {...props} />}
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  component={(props) => <Home {...props} />}
+                />
+                <Route
+                  exact
+                  path="/about"
+                  component={(props) => <About {...props} />}
+                />
+                <Route component={() => <div></div>} />
+              </Switch>
+              <Footer
+                selected={selected}
+                setSelected={setSelected}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
               />
-              <Route component={() => <div>asdfsda</div>} />
-            </Switch>
-            <Footer
-              selected={selected}
-              setSelected={setSelected}
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
-            />
+            </div>
           </BrowserRouter>
         </ThemeProvider>
       </MuiThemeProvider>

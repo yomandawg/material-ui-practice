@@ -8,31 +8,16 @@ import Hidden from '@material-ui/core/Hidden';
 const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.common.blue,
-    bottom: 0,
     zIndex: 1302,
     width: '100%',
-    position: 'absolute',
-    verticalAlign: 'bottom',
-    height: '11em',
+    marginTop: 'auto',
+    height: '10em',
     [theme.breakpoints.down('md')]: {
       height: '8em',
     },
     [theme.breakpoints.down('xs')]: {
       height: '5em',
     },
-  },
-  adornment: {
-    width: '20em',
-    verticalAlign: 'bottom',
-    [theme.breakpoints.down('md')]: {
-      width: '15em',
-    },
-    [theme.breakpoints.down('xs')]: {
-      width: '10em',
-    },
-  },
-  mainContainer: {
-    position: 'absolute',
   },
   link: {
     color: 'white',
@@ -42,24 +27,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   gridItem: {
-    margin: '3em',
-  },
-  icon: {
-    height: '4em',
-    width: '4em',
-    [theme.breakpoints.down('xs')]: {
-      height: '2.5em',
-      width: '2.5em',
-    },
-  },
-  socialContainer: {
-    position: 'absolute',
-    marginTop: '-6em',
-    left: '1.5em',
-    [theme.breakpoints.down('xs')]: {
-      bottom: '1em',
-      left: '0.6em',
-    },
+    margin: '2em',
   },
 }));
 
@@ -97,18 +65,6 @@ export default function Footer({ setSelected, setSelectedItem }) {
               <Grid
                 item
                 component={Link}
-                to="/javascript"
-                className={classes.link}
-                onClick={() => {
-                  setSelected(0);
-                  setSelectedItem('JavaScript');
-                }}
-              >
-                JavaScript
-              </Grid>
-              <Grid
-                item
-                component={Link}
                 to="/react"
                 className={classes.link}
                 onClick={() => {
@@ -121,14 +77,14 @@ export default function Footer({ setSelected, setSelectedItem }) {
               <Grid
                 item
                 component={Link}
-                to="/graphql"
+                to="/deployment"
                 className={classes.link}
                 onClick={() => {
-                  setSelected(1);
-                  setSelectedItem('GraphQL');
+                  setSelected(0);
+                  setSelectedItem('Deployment');
                 }}
               >
-                GraphQL
+                Deployment
               </Grid>
             </Grid>
           </Grid>

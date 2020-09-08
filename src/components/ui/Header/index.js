@@ -31,6 +31,12 @@ export default function Header({
               }
             }
             break;
+          case '/':
+            setSelected(-1);
+            break;
+          case '/about':
+            setSelected(-2);
+            break;
           default:
             break;
         }
