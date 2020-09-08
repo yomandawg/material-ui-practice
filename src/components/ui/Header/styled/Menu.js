@@ -72,5 +72,9 @@ export const StyledMenu = styled(Menu)`
     min-width: 200px;
     background-color: ${({ theme }) => theme.palette.common.blue};
     border-radius: 0;
+    z-index: 0;
+  }
+  .MuiMenu-list {
+    padding-top: 0;
   }
 `;

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 
 import emailIcon from 'assets/email.svg';
 
@@ -73,6 +74,7 @@ export default function About() {
   };
 
   const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Grid container direction="row">
@@ -136,10 +138,10 @@ export default function About() {
                     style={{ marginRight: '0.5em', verticalAlign: 'middle' }}
                   />
                   <a
-                    href={`mailto:youremailaddress`}
+                    href={`mailto:myemailaddress`}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
-                    youremailaddress
+                    myemailaddress
                   </a>
                 </Typography>
               </Grid>
@@ -204,7 +206,82 @@ export default function About() {
             </Grid>
           </Grid>
         </Grid>
-        <Dialog open={open} onClose={() => setOpen(false)}></Dialog>
+        <Dialog
+          open={open}
+          fullScreen={matchesXS}
+          onClose={() => setOpen(false)}
+          style={{ zIndex: 1302 }}
+          PaperProps={{ style: { justifyContent: 'center' } }}
+        >
+          <DialogContent>
+            <Grid container direction="column">
+              <Typography align="center" variant="h4" gutterBottom>
+                Confirm Message
+              </Typography>
+            </Grid>
+            <Grid item container direction="column">
+              <Grid item style={{ marginTop: '1em' }}>
+                <TextField
+                  label="Name"
+                  id="name"
+                  fullWidth
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </Grid>
+              <Grid item style={{ marginTop: '1em' }}>
+                <TextField
+                  label="Email"
+                  id="email"
+                  fullWidth
+                  value={email}
+                  onChange={onChange}
+                  error={emailHelper.length !== 0}
+                  helperText={emailHelper}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              style={{
+                marginTop: '1em',
+              }}
+            >
+              <TextField
+                InputProps={{ disableUnderline: true }}
+                className={classes.message}
+                fullWidth
+                id="message"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                multiline
+                rows={10}
+              />
+            </Grid>
+            <Grid
+              item
+              container
+              style={{
+                marginTop: '1em',
+                marginBottom: '0.5em',
+                justifyContent: 'center',
+              }}
+            >
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button
+                disabled={
+                  name.length === 0 ||
+                  message.length === 0 ||
+                  emailHelper.length !== 0
+                }
+                color="primary"
+                onClick={() => setOpen(true)}
+              >
+                Send
+              </Button>
+            </Grid>
+          </DialogContent>
+        </Dialog>
       </Grid>
     </Grid>
   );

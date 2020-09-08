@@ -14,22 +14,23 @@ export default function DropdownMenu({
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMouseOver = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+    if (!anchorEl) {
+      setAnchorEl(event.currentTarget);
+    } else {
+      setAnchorEl(null);
+    }
   };
 
   const handleClick = (event, name) => {
+    setAnchorEl(null);
     setSelected(index);
     setSelectedItem(name);
-    setAnchorEl(null);
   };
 
   return (
     <>
       <MenuButton
+        style={{ padding: 0 }}
         index={index}
         selected={selected}
         onMouseOver={handleMouseOver}
@@ -40,7 +41,10 @@ export default function DropdownMenu({
         style={{ zIndex: 1302 }}
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        MenuListProps={{ onMouseLeave: handleClose }}
+        MenuListProps={{
+          onMouseLeave: () => setAnchorEl(null),
+        }}
+        onMouseLeave={() => setAnchorEl(null)}
         elevation={0}
         transitionDuration={0}
         variant="menu"
