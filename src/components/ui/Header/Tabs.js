@@ -6,6 +6,13 @@ import NextLink from 'next/link';
 import { MenuContainer, MenuButton } from './styled/Menu';
 import DropdownMenu from './DropdownMenu';
 
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+
 export default function Tabs({
   menus,
   selected,

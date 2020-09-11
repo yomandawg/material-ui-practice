@@ -8,6 +8,7 @@
     "@material-ui/styles": "^4.10.0",
     "axios": "^0.20.0",
     "clsx": "latest",
+    "fontfaceobserver": "^2.1.0",
     "fs-extra": "^9.0.1",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",

@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import NextLink from 'next/link';
 
 const useStyles = makeStyles((theme) => ({
   contactButton: {
@@ -82,14 +83,11 @@ export default function LandingPage() {
                 className={classes.buttonContainer}
               >
                 <Grid item>
-                  <Button className={classes.contactButton} variant="contained">
-                    Contact Me
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" className={classes.aboutButton}>
-                    About Me
-                  </Button>
+                  <NextLink href={'/about'}>
+                    <Button variant="outlined" className={classes.aboutButton}>
+                      About Me
+                    </Button>
+                  </NextLink>
                 </Grid>
               </Grid>
             </Grid>

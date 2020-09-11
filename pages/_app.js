@@ -6,6 +6,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
 import { arc as theme } from 'components/theme';
 import { Header, Footer } from 'components/ui';
+import Font from '../scripts/font';
 
 ReactGA.initialize('UA-177653926-1');
 
@@ -22,6 +23,10 @@ export default function MyApp(props) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  React.useEffect(() => {
+    Font();
+  });
 
   return (
     <React.Fragment>

@@ -7,7 +7,7 @@ export default [
   ],
   [
     { name: 'Deployment', link: '/deployment' },
-    { name: 'Heroku', link: '/heroku' },
+    { name: 'Vercel', link: '/vercel' },
     { name: 'Firebase', link: '/firebase' },
     { name: 'Next.js', link: '/next' },
   ],
